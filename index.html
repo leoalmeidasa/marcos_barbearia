@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcos Barbearia - Seu Estilo, Nossa Paixão</title>
+    <meta name="description" content="Marcos Barbearia - Cortes modernos, barba impecável e atendimento personalizado. Agende seu horário!">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <img src="images/logo.png" alt="Logo Marcos Barbearia" class="logo">
+            <h1 class="business-name">Marcos Barbearia</h1>
+            <p class="slogan">Seu estilo, nossa paixão ✂️</p>
+        </header>
+
+        <nav class="action-buttons">
+            <a href="https://instagram.com/marcosbarbearia_sh" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn btn-instagram">
+                <i class="fab fa-instagram btn-icon"></i>
+                <span>Siga no Instagram</span>
+            </a>
+
+            <a href="https://wa.me/5598985803363?text=Olá! Gostaria de agendar um horário" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp btn-icon"></i>
+                <span>Agendar pelo WhatsApp</span>
+            </a>
+
+            <a href="https://maps.app.goo.gl/DCWSnhbn2gcPmVGc8" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn btn-location">
+                <i class="fas fa-map-marker-alt btn-icon"></i>
+                <span>Como Chegar</span>
+            </a>
+
+            <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDkyODQ1MTE3Mzg4NjQz?story_media_id=3157236632150984533_58055755287&igsh=ZzJkbTU5cXc3c2gx/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn btn-gallery">
+                <i class="fas fa-images btn-icon"></i>
+                <span>Galeria de Cortes</span>
+            </a>
+
+            <a href="tel:+5598985803363" 
+               class="btn btn-phone">
+                <i class="fas fa-phone btn-icon"></i>
+                <span>Ligar Agora</span>
+            </a>
+        </nav>
+
+        <footer class="footer">
+            <p>&copy; 2023 Marcos Barbearia. Todos os direitos reservados.</p>
+            <p>Desenvolvido com ❤️ para seu estilo</p>
+        </footer>
+    </div>
+
+    <script>
+        // Adiciona micro-interações e animações extras
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação de entrada sequencial dos botões
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach((btn, index) => {
+                btn.style.animationDelay = `${0.6 + (index * 0.1)}s`;
+            });
+
+            // Efeito de ripple nos botões
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const rect = button.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.width = '0';
+                    ripple.style.height = '0';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+                    ripple.style.transform = 'translate(-50%, -50%)';
+                    ripple.style.animation = 'ripple 0.6s ease-out';
+                    
+                    button.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Animação de hover para o logo
+            const logo = document.querySelector('.logo');
+            logo.addEventListener('mouseenter', function() {
+                this.style.animation = 'pulse 1s ease-in-out';
+            });
+            
+            logo.addEventListener('animationend', function() {
+                this.style.animation = '';
+            });
+
+            // Lazy loading para imagem do logo
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src || img.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+        });
+
+        // CSS adicional para animações
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    width: 100px;
+                    height: 100px;
+                    opacity: 0;
+                }
+            }
+            
+            .lazy {
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            
+            .lazy.loaded {
+                opacity: 1;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
